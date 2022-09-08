@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Quizzer</title>
+
+    <style>
+        #title-text{
+            text-align: center;
+        }
+        table, .data{
+            border: 3px solid black;
+        }
+        #title-text2{
+            border-bottom: 3px solid black;
+        }
+        .delete-btn{
+            background-color: #db5656;
+        }
+        .add-btn{
+            background-color: #39a7e7;
+        }
+        .save-btn{
+            background-color: #22ff38;
+        }
+        
+    </style>
+
+</head>
+<body>
+    <h2 id="title-text">Quizzer</h2>
+
+    <div id="quiz-panel">
+
+    </div>
+
+    <div id="quiz-admin-panel">
+        
+        <table>
+            <th colspan="3" id="title-text2">Quiz Admin</th>
+            <tr>
+                <th>Question</th>
+
+                <th>Correct Answer</th>
+
+            </tr>
+            <tr>
+                <td class="data">What is the Capital of Massachusetts?</td>
+
+                <td class="data">Boston</td>
+
+                <td><button class="delete-btn">Delete</button></td>
+
+            </tr>
+            <tr> 
+                <td class="data">Who is the President of Endicott College?</td>
+
+                <td class="data">Dr. Steven DiSalvo</td>
+
+                <td><button class="delete-btn">Delete</button></td>
+
+            </tr>
+
+            <td><button id="add-btn">Add Question</button></td>
+
+            <td><button id="save-btn">Save</button></td>
+
+        </table>
+
+    </div>
+
+</body>
+
+</html>
