@@ -2,82 +2,138 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Tododles</title>
-
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script> 
     <script src="sort-table.min.js"></script>
 
     <style>
-        .item-col, #new-item{
+        .item-col, #new-item,
+        .category-col, #new-category {
             width: 150px;
         }
-        .priority-col, #new-priority{
+
+        .priority-col, #new-priority {
             width: 60px;
+        }
+        .bar h2, .bar h1{
+            display: inline-block;
+            margin-right: 2em;
+        }
+        #list-name-editor{
+            display: none;
+        }
+        body.todo-lists-view .todo-list-view, body.todo-list-view .todo-lists-view{
+            display: none;
         }
     </style>
 
     <script>
-        $(document).ready(function(){
-            $(document).on('click', '#add-todo', function(){
-                $('#todo-list').append(`<tr><td>${$('new-item').val()}</td>` + `<tr><td>${$('new-priority').val()}</td>` + `<tr><td>${$('new-category').val()}</td>` + '<td><button class="remove-item">X</button></td>');
-            })
-        })
-    </script>
 
+        function updateViews(){
+            var id = window.location.hash.match(/^#?([^?]*)/)[1];
+
+            if(id.length === 0){
+                $('body').addClass('todo-lists-view').removeClass('todo-list-view');
+            }
+            else{
+                $('body').removeClass('todo-lists-view').addClass('todo-list-view');
+            }
+        }
+
+        $(document).ready(function(){
+
+            $(document).on('click', '#add-todo', function(){
+                $('#todo-list').append(`<tr><td>${$('#new-item').val()}</td>`+
+                    `<td>${$('#new-priority').val()}</td>`+
+                    `<td>${$('#new-category').val()}</td>`+
+                    '<td><button class="remove-item">X</button></td>');
+            });
+
+            $(window).on('hashchange', updateViews);
+
+
+            updateViews();
+        });
+    </script>
 </head>
 <body>
-    <h2>Tododles</h2>
+    <div class="bar">
+        <h1>Tododles</h1>
+        <a href="#" class="todo-list-view">All lists</a>
+    </div>
 
-    <table>
-        <tr>
-            <th class="item-col">New item</th>
-            <th class="priority-col">Priority</th>
-            <th class="category-col">Category</th>
-            <th></th>
-        </tr>
+    <div id="todo-lists-container" class="todo-lists-view">
+        <div class="bar">
+            <h2>All lists</h2>
+            <button id="new-list">New</button>
+        </div>
 
-        <tr>
-            <td><input type="text" id="new-item"/></td>
-            <td><input type="number" id="new-priority"/></td>
-            <td><input type="text" id="new-category"/></td>
-            <td><button id="add-todo">Add</button></td>
-        </tr>
+        <ul id="todo-lists">
 
-    </table>
+        </ul>
+    </div>
 
+    <div id="todo-list-container" class="todo-list-view">
 
-    <table id="todo-list" class="js-sort-table">
+        <div class="bar">
+            <h2 class="list-name">The name of my todo list</h2>
+            <button id="edit-list-name">Edit</button>
+            <button id="delete-list-name">Delete</button>
+        </div>
+        <div id="list-name-editor">
+            <input type="text" id="edited-list-name"/>
+            <button id="save-list-name">Save</button>
+            <button id="save-list-editor">Cancel</button>
+        </div>
 
-        <tr>
-            <th class="item-col">Item</th>
-            <th class="priority-col">Priority</th>
-            <th class="category-col">Category</th>
-            <th></th>
-        </tr>
+        <table>
+            <tr>
+                <th class="item-col">New item</th>
+                <th class="priority-col">Priority</th>
+                <th class="category-col">Category</th>
+                <th></th>
+            </tr>
 
-        <tr>
-            <td>do homework</td>
-            <td>3</td>
-            <td>school</td>
-            <td><button class="remove-item">X</button></td>
-        </tr>
+            <tr>
+                <td><input type="text" id="new-item"/></td>
+                <td><input type="number" id="new-priority"/></td>
+                <td><input type="text" id="new-category"/></td>
+                <td><button id="add-todo">Add</button></td>
+            </tr>
+        </table>
 
-        <tr>
-            <td>catch up with friends</td>
-            <td>2</td>
-            <td>social</td>
-            <td><button class="remove-item">X</button></td>
-        </tr>
+        <table id="todo-list" class="js-sort-table">
+            <tr>
+                <th class="item-col">Item</th>
+                <th class="priority-col">Priority</th>
+                <th class="category-col">Category</th>
+                <th></th>
+            </tr>
 
-        <tr>
-            <td>call mom</td>
-            <td>1</td>
-            <td>family</td>
-            <td><button class="remove-item">X</button></td>
-        </tr>
+            <tr>
+                <td>do homework</td>
+                <td>3</td>
+                <td>school</td>
+                <td><button class="remove-item">X</button></td>
+            </tr>
 
-    </table>
+            <tr>
+                <td>catch up with friends</td>
+                <td>2</td>
+                <td>social</td>
+                <td><button class="remove-item">X</button></td>
+            </tr>
 
+            <tr>
+                <td>call mom</td>
+                <td>1</td>
+                <td>private</td>
+                <td><button class="remove-item">X</button></td>
+            </tr>
+
+        </table>
+
+    </div>
 </body>
 </html>
