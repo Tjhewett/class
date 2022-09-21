@@ -10,7 +10,26 @@ $(document).ready(function(){
     $(document).on('click', '#save-quiz', saveQuiz);
     $(document).on('click', '#reset-quiz', function(){populateQuiz(questions)});
     $(document).on('click', '#check-quiz', checkQuiz);
+
+    loadQuizData();
 });
+
+/**
+ * Load any saved questions and update the interface
+ */
+function loadQuizData(){
+    if(localStorage.getItem('questions') !== null){
+
+        // load the questions
+        questions = JSON.parse(localStorage.getItem('questions'));
+
+        // update the quiz interface 
+        populateQuiz(questions);
+
+        // update the quiz admin interface 
+    }
+}
+
 
 /**
  * Saves the quiz questions from the admin panel, updates the quiz panel.
@@ -26,10 +45,14 @@ function saveQuiz(){
     });
 
     // Save quiz.
+    localStorage.setItem('questions', JSON.stringify(questions));
     // TODO
 
     // Update quiz panel.
     populateQuiz(questions);
+
+    //update the quiz admin interface
+    populateQuizAdmin(questions);
 }
 
 /**
@@ -53,10 +76,19 @@ function populateQuiz(questions){
  * Adds a new row to the quiz admin question editor table.
  */
 function addQuestion(){
-    var newRow = '<tr><td><textarea rows="2" class="question"></textarea></td>'+
-        '<td><textarea rows="2" class="answer"></textarea></td>'+
-        '<td><button class="remove-question">Delete</button></td></tr>';
-    $('#quiz-admin-questions').append(newRow);
+    // var newRow = '<tr><td><textarea rows="2" class="question"></textarea></td>'+
+    //    '<td><textarea rows="2" class="answer"></textarea></td>'+
+    //    '<td><button class="remove-question">Delete</button></td></tr>';
+
+    var $newRow = $('#question-admin-template').click;
+    $newRow.attr('id', '');
+    $newRow.removeClass('hidden');
+    $('#quiz-admin-questions').append($newRow);
+    
+}
+
+function populateQuizAdmin(){
+    
 }
 
 /**
