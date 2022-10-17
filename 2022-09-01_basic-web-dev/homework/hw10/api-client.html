@@ -65,119 +65,48 @@
 <body>
 
     <div class="action-wrapper">
-        <h1>Add book</h1>
+        <h1>Add QuizItem</h1>
         <form>
-            <input type="hidden" name="action" value="add-book"/>
-            Title: <input type="text" name="title"/><br/>
-            Author: <input type="text" name="author"/><br/>
-            Year: <input type="text" name="year"/><br/>
-            Copies: <input type="number" name="copies"/><br/>
-            <input type="submit" value="Add book"/>
-        </form>
-        <textarea class="output"></textarea>
-    </div>
-
-
-    <div class="action-wrapper">
-        <h1>Add Patron</h1>
-        <form>
-            <input type="hidden" name="action" value="add-patron"/>
-            Name: <input type="text" name="name"/><br/>
-            Address: <input type="text" name="address"/><br/>
-            Phone number: <input type="text" name="phone-number"/><br/>
-            <input type="submit" value="Add patron"/>
-        </form>
-        <textarea class="output"></textarea>
-    </div>
-
-
-    <div class="action-wrapper">
-        <h1>Checkout book</h1>
-        <form>
-            <input type="hidden" name="action" value="checkout-book"/>
-            Patron id: <input type="number" name="patron-id"/><br/>
-            Book id: <input type="number" name="book-id"/><br/>
-            Due on: <input type="date" name="due-on"/><br/>
-            <input type="submit" value="Check out book"/>
+            <input type="hidden" name="action" value="add-quizitem"/>
+            Question: <input type="text" name="question"/><br/>
+            Answer: <input type="text" name="answer"/><br/>
+            <input type="submit" value="Add quizitem"/>
         </form>
         <textarea class="output"></textarea>
     </div>
 
     <div class="action-wrapper">
-        <h1>Return book</h1>
+        <h1>Get quizitems</h1>
         <form>
-            <input type="hidden" name="action" value="return-book"/>
-            Checkout id: <input type="number" name="checkout-id"/><br/>
-            <input type="submit" value="Return book"/>
+            <input type="hidden" name="action" value="get-quizitems"/>
+            <input type="submit" value="Get quizitems"/>
         </form>
         <textarea class="output"></textarea>
     </div>
 
     <div class="action-wrapper">
-        <h1>Get overdue books</h1>
+        <h1>Remove QuizItem</h1>
         <form>
-            <input type="hidden" name="action" value="get-overdue-books"/>
-            <input type="submit" value="Get overdue books"/>
+            <input type="hidden" name="action" value="remove-quizitem"/>
+            QuizItemID: <input type="number" name="quizitem-id"/><br/>
+            <input type="submit" value="Remove quizitem"/>
         </form>
         <textarea class="output"></textarea>
     </div>
 
     <div class="action-wrapper">
-        <h1>Get books</h1>
+        <h1>Update QuizItem</h1>
         <form>
-            <input type="hidden" name="action" value="get-books"/>
-            <input type="submit" value="Get books"/>
+            <input type="hidden" name="action" value="update-quizitem"/>
+            Question: <input type="text" name="question"/><br/>
+            Answer: <input type="text" name="answer"/><br/>
+            QuizItemID: <input type="number" name="quizitem-id"/><br/>
+            <input type="submit" value="Update quizitem"/>
         </form>
         <textarea class="output"></textarea>
     </div>
 
-    <div class="action-wrapper">
-        <h1>Get book</h1>
-        <form>
-            <input type="hidden" name="action" value="get-book"/>
-            Id: <input type="number" name="id"/><br/>
-            <input type="submit" value="Get book"/>
-        </form>
-        <textarea class="output"></textarea>
-    </div>
 
-    <div class="action-wrapper">
-        <h1>Get Patrons</h1>
-        <form>
-            <input type="hidden" name="action" value="get-patrons"/>
-            <input type="submit" value="Get patrons"/>
-        </form>
-        <textarea class="output"></textarea>
-    </div>
-
-    <div class="action-wrapper">
-        <h1>Get patron</h1>
-        <form>
-            <input type="hidden" name="action" value="get-patron"/>
-            Id: <input type="number" name="id"/><br/>
-            <input type="submit" value="Get patron"/>
-        </form>
-        <textarea class="output"></textarea>
-    </div>
-
-    <div class="action-wrapper">
-        <h1>Get checkouts</h1>
-        <form>
-            <input type="hidden" name="action" value="get-checkouts"/>
-            <input type="submit" value="Get checkouts"/>
-        </form>
-        <textarea class="output"></textarea>
-    </div>
-
-    <div class="action-wrapper">
-        <h1>Get checkout</h1>
-        <form>
-            <input type="hidden" name="action" value="get-checkout"/>
-            Id: <input type="number" name="id"/><br/>
-            <input type="submit" value="Get checkout"/>
-        </form>
-        <textarea class="output"></textarea>
-    </div>
 
 
 </body>

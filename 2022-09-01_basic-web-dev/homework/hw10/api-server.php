@@ -32,29 +32,14 @@ createTables();
 // Handle incoming requests.
 if(array_key_exists('action', $_POST)){
     $action = $_POST['action'];
-    if($action == 'add-book'){
-        addBook($_POST);
-    } else if($action == 'add-patron') {
-        addPatron($_POST);
-    } else if($action == 'checkout-book'){
-        checkoutBook($_POST);
-    } else if($action == 'return-book'){
-        returnBook($_POST);
-    } else if($action == 'get-overdue-books'){
-        getOverDueBooks($_POST);
-    } else if($action == 'get-books'){
-        getTable('Books');
-    } else if($action == 'get-book'){
-        getTableRow('Books', $_POST);
-    } else if($action == 'get-patrons'){
-        getTable('Patrons');
-    } else if($action == 'get-patron'){
-        getTableRow('Patrons', $_POST);
-    } else if($action == 'get-checkouts'){
-        getTable('Checkouts');
-    } else if($action == 'get-checkout'){
-        getTableRow('Checkouts', $_POST);
-
+    if($action == 'add-quizitem'){
+        addQuizItem($_POST);
+    } else if($action == 'get-quizitems'){
+        getTable('QuizItems');
+    } else if($action == 'remove-quizitem'){
+        removeQuizItem($_POST);
+    } else if($action == 'update-quizitem'){
+        updateQuizItem($_POST);
     } else {
         echo json_encode([
             'success' => false, 
@@ -69,24 +54,10 @@ function createTables(){
 
     try{
 
-        // Create the Books table.
-        $dbh->exec('create table if not exists Books('. 
+        // Create the QuizItems table.
+        $dbh->exec('create table if not exists QuizItems('. 
             'id integer primary key autoincrement, '. 
-            'title text, author text, year int, copies int)');
-
-        // Create the Patrons table.
-        $dbh->exec('create table if not exists Patrons('. 
-            'id integer primary key autoincrement, '. 
-            'name text, address text, phone_number text)');
-
-        // Create the Checkouts table.
-        $dbh->exec('create table if not exists Checkouts('. 
-            'id integer primary key autoincrement, '. 
-            'patron_id int, book_id int, '. 
-            'checked_out_on date, due_on date, returned_at datetime, '.
-            'foreign key (patron_id) references patrons (id),'. 
-            'foreign key (book_id) references books (id))');
-
+            'question text, answer text, created_at datetime default(datetime()), updated_at datetime default(datetime()))');
     } catch(PDOException $e){
         echo json_encode([
             'success' => false, 
@@ -103,17 +74,54 @@ function createTables(){
  *  - copies
  * @param data An associative array holding parameters and their values.
  */
-function addBook($data){
+function addQuizItem($data){
     global $dbh;
 
     try {
-        $statement = $dbh->prepare('insert into Books(author, title, year, copies) '.
-            'values (:author, :title, :year, :copies)');
+        $statement = $dbh->prepare('insert into QuizItems(question, answer) '.
+            'values (:question, :answer)');
         $statement->execute([
-            ':author' => $data['author'], 
-            ':title'  => $data['title'], 
-            ':year'   => $data['year'], 
-            ':copies' => $data['copies']]);
+            ':question' => $data['question'], 
+            ':answer'  => $data['answer']]);
+
+        echo json_encode(['success' => true]);
+
+    } catch(PDOException $e){
+        echo json_encode([
+            'success' => false, 
+            'error' => "There was an error adding a book: $e"
+        ]);
+    }
+}
+
+function updateQuizItem($data){
+    global $dbh;
+
+    try {
+        $statement = $dbh->prepare('update QuizItems set question = :questions, answer = :answer, updated_at = datetime() where id = :id' );
+        $statement->execute([
+            ':question' => $data['question'], 
+            ':answer'  => $data['answer'],
+            ':id'  => $data['quizitem-id'],
+        ]);
+
+        echo json_encode(['success' => true]);
+
+    } catch(PDOException $e){
+        echo json_encode([
+            'success' => false, 
+            'error' => "There was an error adding a book: $e"
+        ]);
+    }
+}
+
+function removeQuizItem($data){
+    global $dbh;
+
+    try {
+        $statement = $dbh->prepare('delete from QuizItems where id = :id');
+        $statement->execute([
+            ':id' => $data['quizitem-id']]);
 
         echo json_encode(['success' => true]);
 
