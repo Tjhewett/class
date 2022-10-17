@@ -9,8 +9,8 @@ if(key_exists("responses", $_POST)){
 
     $correct = 0;
     for($i = 0; $i < count($questions); $i++){
-        print "question: ". json_encode($questions[$i]) ."<br/>";
-        print "response: ". json_encode($responses[$i]) ."<br/>";
+        // print "question: ". json_encode($questions[$i]) ."<br/>";
+        // print "response: ". json_encode($responses[$i]) ."<br/>";
         $questions[$i]["response"] = $responses[$i]["answer"];
         $questions[$i]["correct"] = false;
         if($questions[$i]["answer"] === $questions[$i]["response"]){
@@ -77,7 +77,7 @@ if(key_exists("responses", $_POST)){
                     // print htmlentities($question["response"]);
                     print $question["response"];
                 }
-                print "</textarea></li>";
+                print "</textarea></li>\n";
                 $counter += 1;
             }
             ?>
@@ -87,7 +87,7 @@ if(key_exists("responses", $_POST)){
         <button id="reset-quiz">Reset</button>
     </div>
 
-    <form id="response-submission-form" class="hidden" method="post" action="quiz.php">
+    <form id="response-submission-form" class="hidden" method="post" action="grade.php">
         <input type="text" name="responses"/>
     </form>
     

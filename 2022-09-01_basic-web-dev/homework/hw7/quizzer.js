@@ -11,7 +11,7 @@ $(document).ready(function(){
     $(document).on('click', '#reset-quiz', function(){populateQuiz(questions)});
     $(document).on('click', '#check-quiz', checkQuiz);
 
-    loadQuizData();
+    // loadQuizData();
 });
 
 /**
@@ -135,20 +135,39 @@ function checkQuiz(){
         });
     });
     
-    var $form = $('#response-submission-form');
-    $form.find('[name=responses]').val(JSON.stringify(responses));
-    $form.submit();
+    // var $form = $('#response-submission-form');
+    // $form.find('[name=responses]').val(JSON.stringify(responses));
+    // $form.submit();
+
+    $.ajax('grade.php', {
+        method: 'post',
+        data: {responses: JSON.stringify(responses)},
+        dataType: 'json',
+        success: function(data, textStatus, jqXHR){
+            // data = JSON.parse(data);
+            console.log(data, typeof(data));
+            gradeQuiz(data);
+
+        },
+        error: function(jqXHR, textStatus, errorThrown){
+            alert(`There was an error with your request! ${textStatus}: ${errorThrown}`);
+        }
+    });
 }
 
-$.ajax({
-    url: '/grade.php',
-    method: 'post',
-    sucess: function(responses){
-        if(responses == "success"){
-            checkQuiz();
+function gradeQuiz(questions){
+    var correct = 0;
+    $('#quiz .response').each(function(i, elm){
+        var $questionItem = $(elm).parents('li');
+        var questionIndex = parseInt($questionItem.data('id'));
+        if(questions[questionIndex].correct){
+            correct++;
+            $questionItem.addClass('correct');
+            $questionItem.removeClass('incorrect');
+        } else {
+            $questionItem.addClass('incorrect');
+            $questionItem.removeClass('correct');
         }
-        else {
-            $('status').html('failed to get responses');
-        }
-    }
-});
+    });
+    $('#score').html(`Score: ${correct}/${questions.length} = ${correct/questions.length}`);
+}
