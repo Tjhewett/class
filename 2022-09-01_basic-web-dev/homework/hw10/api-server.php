@@ -98,7 +98,7 @@ function updateQuizItem($data){
     global $dbh;
 
     try {
-        $statement = $dbh->prepare('update QuizItems set question = :questions, answer = :answer, updated_at = datetime() where id = :id' );
+        $statement = $dbh->prepare('update QuizItems set question = :question, answer = :answer, updated_at = datetime() where id = :id' );
         $statement->execute([
             ':question' => $data['question'], 
             ':answer'  => $data['answer'],
