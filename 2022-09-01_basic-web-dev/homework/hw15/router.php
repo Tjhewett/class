@@ -1,8 +1,10 @@
+
 <?php
 // File:        router.php
-// Author:      Hank Feild
-// Date:        2020-10-22, updated 2020-11-05, 2020-11-19
+// Author:      Trevor Hewett
+// Date:        11-9-2022
 // Purpose:     Demonstrates a RESTful API with sessionless authorization.
+// hw 15
 
 // For all of our JWT needs.
 require_once('jwt.php');
